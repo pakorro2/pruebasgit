@@ -133,9 +133,9 @@ npm install --save-dev sequelize-cli
 
 Next we will run the commands to execute the migrations and seeders of the project.
 
+**Note:** You must have previously created the database and set the environment variable with the URI for development.
 ```bash
 # These commands will create the tables in the database according to the configuration of the models and the initial test data.
-**Note** You must have previously created the database and set the environment variable with the URI for development.
 npx sequelize init:migrations
 npx sequelize init:seeders
 ```
