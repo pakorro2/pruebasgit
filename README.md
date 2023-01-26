@@ -40,45 +40,6 @@ Open your local browser and verify the BK-para-cuando-G4 API is working by acces
 `http://localhost:9000/ --> status	"Up"
 
 
-## Method 2: From Artifactory
-### 1) Download latest pax from artifactory
-
-```
-
-### 3) Lifecycle scripts of the component
-
-We expect following in service folder `start.sh`. In our case its bin folder with relevant scripts.
-
-`start.sh` starts node app on configured port       
-`env.sh` its custom script use to configure port for our node app, feel free to use your desired way         
-
-### 4) Access newly deployed webservice
-
-Please see static definition file `sample-node-api.yml`      
-It configures service endpoint as `sample-node-api` with property `serviceId`     
-We also provide api gateway base path `api\v1` with property `gatewayUrl` in same file.        
-
-
-In effect, service can be accessed with following url:      
-`https://{host}:{GATEWAY_PORT}/{gatewayUrl}/{serviceId}/*`    
-
-where `GATEWAY_PORT` is configured in $INSTANCE_DIR/instance.env      
-
-Verify by accessing following:      
-`https://my.mainframe.com:7554/api/v1/sample-node-api/accounts/`            
-`https://my.mainframe.com:7554/api/v1/sample-node-api/accounts/1/`            
-`https://my.mainframe.com:7554/api/v1/sample-node-api/accounts/1/cars/`              
-
-### 5) Registered With API Catalog
-
-**API Catalog**
-![APICatalog_Dashboard](./screenshots/APICatalog_Dashboard.png)
-
-![ApiCatalog_SampleNodeApi_SwaggerDoc](./screenshots/ApiCatalog_SampleNodeApi_SwaggerDoc.png)
-
-**Discovery Service Dashboard**
-![DiscoveryService_Dashboard](./screenshots/DiscoveryService_Dashboard.png)
-
 ## Project Structure
 The folder structure of this app is explained below:
 
