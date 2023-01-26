@@ -69,20 +69,19 @@ The folder structure of this app is explained below:
 
 ### Config .env
 
-Open the .env file in your text editor and enter the following information from the Feature section you just configured.
+Open the .env.example (rename file to .env for production)file in your text editor and enter the following information from the Feature section you just configured.
 
 ```bash
-# Zoom Secret token from your Webhook only app
-ZOOM_WEBHOOK_SECRET_TOKEN=
+# Port server
+PORT:
 
 # PostgreSQL credentials and information (you will come back and fill up this information after we set up our database)
-PORT=
-PG_USER=
-PG_HOST=
-PG_DATABASE=
-PG_PASSWORD=
-PG_PORT=
+A database URI is made up of these parts:
+db:engine:[//[user[:password]@][host][:port]/][dbname]
 
+DATABASE_URI_DEV:
+DATABASE_URI_TEST:
+DATABASE_URI_PROD:
 ```
 
 ### Config: Creating Database
