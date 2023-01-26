@@ -6,7 +6,7 @@ Objetivo del la API es que podamos autenticarnos para publicar ciertas encuestas
 ## Steps
 
 **Note**  
-`Antes de iniciar recomendamos contar con algunas extenciones para su editor de codigo favorito en nuestro caso Visual Studio Code, instala Elist y Error Lens.`   
+`Antes de iniciar recomendamos contar con algunas extenciones para su editor de codigo favorito en nuestro caso Visual Studio Code, instala Elist y Error Lens. Vamos a usar eslint en el proyecto para cuidar la manera en cómo construimos código.`   
 
 ## PART I: Download & Build on local | From github
 
@@ -34,7 +34,8 @@ npm run dev
 
 - API Document endpoints
 
-   swagger-ui  Endpoint : http://localhost:8001/docs 
+   swagger-ui  Endpoint : http://localhost:9000/docs 
+   
 
 Open your local browser and verify the BK-para-cuando-G4 API is working by accessing:     
 `http://localhost:9000/ --> status	"Up"
@@ -43,28 +44,30 @@ Open your local browser and verify the BK-para-cuando-G4 API is working by acces
 ## Project Structure
 The folder structure of this app is explained below:
 
+## Project Structure
+The folder structure of this app is explained below:
+
 | Name | Description |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
 | **controllers**          | Controllers define functions to serve various express routes. 
 | **database**             | Contains configuration, migrations, models and seeders.  |
-| **database**/config   | Models define schemas that will be used in storing and retrieving data from Application database  |
-| **database**/migration  | Models define schemas that will be used in storing and retrieving data from Application database  |
-| **database**/models    | Models define schemas that will be used in storing and retrieving data from Application database  |
-| **database**/seeders      | Models define schemas that will be used in storing and retrieving data from Application database  |
+| **database**/config   | Contains config file, which tells CLI how to connect with database  |
+| **database**/migration  | Contains all migration files  |
+| **database**/models    | Contains all models for your project  |
+| **database**/seeders      | Contains all seed files  |
 | **libs**                 | Common libraries to be used across your app.                               |
 | **middlewares**  | Express middlewares which process the incoming requests before handling them down to the routes                               |
 | **node_modules**         | Contains all  npm dependencies                                                            |
-| **routes**           | Contain all express routes, separated by module/area of application                       
-| **services**           | Contain all express routes, separated by module/area of application                       
-| **utils**      | Prometheus metrics |
-| **configuration**        | Application configuration including environment-specific configs 
-| **src/middlewares**      | Express middlewares which process the incoming requests before handling them down to the routes
+| **routes**           | Contains all express routes, named by area of application              |        
+| **services**           | Database management using the ORM from here. |
+| **utils**      | Here we will handle functions that commonly help us in many parts of the application. |
 | index.js         | Entry point to express app                                                               |
-| .eslintrc.jsn              | Config settings for TSLint code style checking                                              |
-| .gitignore              | Config settings for TSLint code style checking                                              |
-| .sequelizerc             | Config settings for TSLint code style checking                                            |
-| package.json             | Contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)   | tsconfig.json            | Config settings for compiling source code only written in TypeScript    
-| .README.md              | Config settings for TSLint code style checking                                              |    
+| .env.example        | Contains the environment variables used in the project                                       |
+| .eslintrc.js   | Eslint configuration file where some simple rules to follow apply and I corrected |
+| .gitignore              | Contains a pattern for files/directories to ignore         |
+| .sequelizerc             | sequelizerc file to generate the config and the model using the specified path.     |
+| package.json             | Contains npm dependencies as well as build scripts  |
+| .README.md              | Contains the basic information of the files and some guides.                          | 
 
 
 ### Config .env
@@ -79,11 +82,12 @@ PORT:
 A database URI is made up of these parts:
 db:engine:[//[user[:password]@][host][:port]/][dbname]
 ------
-example local db url: postgresql://postgres:root@localhost:5432/para_cuando
+Example local data base URI: postgresql://postgres:root@localhost:5432/para_cuando
 # Place in the variable according to the use case
 DATABASE_URI_DEV:
 DATABASE_URI_TEST:
 DATABASE_URI_PROD:
+
 ```
 
 ### Config: Creating Database
@@ -115,4 +119,57 @@ Commands within psql start with a backlash \. To test this, we can check what da
 
 ```bash
 postgres=# \conninfo
+```
+
+
+### Secualize-cli
+### Installation
+
+Make sure you have [Sequelize](https://sequelize.org) installed. Then install the Sequelize CLI to be used in your project with
+
+```bash
+npm install --save-dev sequelize-cli
+```
+
+Next we will run the commands to execute the migrations and seeders of the project.
+
+```bash
+# These commands will create the tables in the database according to the configuration of the models and the initial test data.
+**Note** You must have previously created the database and set the environment variable with the URI for development.
+npx sequelize init:migrations
+npx sequelize init:seeders
+```
+### Usage other commands
+
+```bash
+Sequelize CLI
+
+sequelize <command>
+
+Commands:
+  sequelize db:migrate                        Run pending migrations
+  sequelize db:migrate:schema:timestamps:add  Update migration table to have timestamps
+  sequelize db:migrate:status                 List the status of all migrations
+  sequelize db:migrate:undo                   Reverts a migration
+  sequelize db:migrate:undo:all               Revert all migrations ran
+  sequelize db:seed                           Run specified seeder
+  sequelize db:seed:undo                      Deletes data from the database
+  sequelize db:seed:all                       Run every seeder
+  sequelize db:seed:undo:all                  Deletes data from the database
+  sequelize db:create                         Create database specified by configuration
+  sequelize db:drop                           Drop database specified by configuration
+  sequelize init                              Initializes project
+  sequelize init:config                       Initializes configuration
+  sequelize init:migrations                   Initializes migrations
+  sequelize init:models                       Initializes models
+  sequelize init:seeders                      Initializes seeders
+  sequelize migration:generate                Generates a new migration file      [aliases: migration:create]
+  sequelize model:generate                    Generates a model and its migration [aliases: model:create]
+  sequelize seed:generate                     Generates a new seed file           [aliases: seed:create]
+
+Options:
+  --version  Show version number                                                  [boolean]
+  --help     Show help                                                            [boolean]
+
+Please specify a command
 ```
