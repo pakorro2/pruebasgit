@@ -78,7 +78,9 @@ PORT:
 # PostgreSQL credentials and information (you will come back and fill up this information after we set up our database)
 A database URI is made up of these parts:
 db:engine:[//[user[:password]@][host][:port]/][dbname]
-
+------
+example local db url: postgresql://postgres:root@localhost:5432/para_cuando
+# Place in the variable according to the use case
 DATABASE_URI_DEV:
 DATABASE_URI_TEST:
 DATABASE_URI_PROD:
